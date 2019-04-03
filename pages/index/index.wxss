@@ -1,0 +1,104 @@
+/**index.wxss**/
+
+.item {
+  border: 1rpx solid #eee;
+  padding: 10rpx;
+  font-size: 11pt;
+}
+
+.active {
+  background: #a51515;
+  color: #fff;
+}
+
+.background {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  background: #f5f5f5;
+}
+
+.background .info{
+  position: fixed;
+  top: 140rpx;
+  left: 0;
+  right: 0;
+  font-size: 12pt;
+  color: #353535;
+}
+
+.background .list {
+  position: fixed;
+  right: 40rpx;
+  top: 40rpx;
+  width: 60rpx;
+  height: 60rpx;
+}
+
+.background .poster {
+  width: 150rpx;
+  height: 150rpx;
+  border-radius: 50%;
+  margin-top: 400rpx;
+}
+
+.rotate {
+  animation: rotate 10s linear infinite;
+}
+
+.rotate-paused {
+  animation: rotate 10s linear infinite;
+  animation-play-state: paused;
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(180deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.progress {
+  position: fixed;
+  bottom: 90rpx;
+  left: 50rpx;
+  right: 50rpx;
+  display: flex;
+  align-items: center;
+  font-size: 10pt;
+  color: rgb(87, 49, 49);
+  text-align: center;
+}
+
+.progress .bar {
+  flex: 1;
+}
+
+.progress text {
+  flex-basis: 90rpx;
+}
+
+.buttons {
+  position: fixed;
+  bottom: 20rpx;
+  left: 50rpx;
+  right: 50rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.buttons .button {
+  width: 70rpx;
+  height: 70rpx;
+}

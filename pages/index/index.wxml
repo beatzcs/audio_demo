@@ -1,0 +1,28 @@
+<!--index.wxml-->
+<view class="container">
+  <view wx:if="{{showList}}" class="list">
+    <view wx:for="{{audioList}}" class='item {{audioIndex==index?"active":""}}' bindtap='listClick' data-pos='{{index}}'>
+      <view>{{item.name}}</view>
+      <text>{{item.author}}</text>
+    </view>
+  </view>
+
+  <view wx:else class='background'>
+    <view class='info'>
+      <view>{{audioList[audioIndex].name||""}}</view>
+      <view>{{audioList[audioIndex].author||""}}</view>
+    </view>
+    <image class='list' bindtap='pageChange' src='/images/list.png'></image>
+    <image class='poster {{playStatus?"rotate":"rotate-paused"}}' mode="scaleToFill" src='{{audioList[audioIndex].poster}}'></image>
+    <view class='progress'>
+      <text>{{progressText}}</text>
+      <slider class='bar' bindchange="sliderChange" bindchanging="sliderChanging" value="{{progress}}" step="1" min='0' max='{{duration}}' activeColor="#1aad19" block-size="12" block-color="#1aad19" />
+      <text>{{durationText}}</text>
+    </view>
+    <view class='buttons'>
+      <image class='button' bindtap='lastMusic' src='/images/last.png'></image>
+      <image class='button' bindtap='playOrpause' src='{{playStatus?"/images/pause.png":"/images/play.png"}}'></image>
+      <image class='button' bindtap='nextMusic' src='/images/next.png'></image>
+    </view>
+  </view>
+</view>
