@@ -6,7 +6,7 @@ Page({
    */
   data: {
     playStatus: true,
-    audioIndex: 0,
+    audioIndex: -1,//如果直接播放则改为对应下标
     progress: 0,
     duration: 0,
     audioList: [],
@@ -16,14 +16,15 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
+  onLoad: function (options) {
     this.setData({
       audioList: data
     })
-    this.playMusic();
+    //初始化时默认不播放
+    // this.playMusic();
   },
 
-  playMusic: function() {
+  playMusic: function () {
     let audio = this.data.audioList[this.data.audioIndex];
     let manager = wx.getBackgroundAudioManager();
     manager.title = audio.name || "音频标题";
@@ -34,34 +35,34 @@ Page({
     manager.src = audio.src;
     manager.currentTime = 0;
     let that = this;
-    manager.onPlay(function() {
+    manager.onPlay(function () {
       console.log("======onPlay======");
       that.setData({
         playStatus: true
       })
       that.countTimeDown(that, manager);
     });
-    manager.onPause(function() {
+    manager.onPause(function () {
       that.setData({
         playStatus: false
       })
       console.log("======onPause======");
     });
-    manager.onEnded(function() {
+    manager.onEnded(function () {
       console.log("======onEnded======");
       that.setData({
         playStatus: false
       })
-      setTimeout(function() {
+      setTimeout(function () {
         that.nextMusic();
       }, 1500);
     });
   },
 
   //循环计时
-  countTimeDown: function(that, manager, cancel) {
+  countTimeDown: function (that, manager, cancel) {
     if (that.data.playStatus) {
-      setTimeout(function() {
+      setTimeout(function () {
         if (that.data.playStatus) {
           // console.log("duration: " + manager.duration);
           // console.log(manager.currentTime);
@@ -78,20 +79,20 @@ Page({
   },
 
   //拖动事件
-  sliderChange: function(e) {
+  sliderChange: function (e) {
     let manager = wx.getBackgroundAudioManager();
     manager.pause();
     manager.seek(e.detail.value);
     this.setData({
       progressText: this.formatTime(e.detail.value)
     })
-    setTimeout(function() {
+    setTimeout(function () {
       manager.play();
     }, 1000);
   },
 
   //列表点击事件
-  listClick: function(e) {
+  listClick: function (e) {
     let pos = e.currentTarget.dataset.pos;
     if (pos != this.data.audioIndex) {
       this.setData({
@@ -107,7 +108,7 @@ Page({
   },
 
   //上一首
-  lastMusic: function() {
+  lastMusic: function () {
     let audioIndex = this.data.audioIndex > 0 ? this.data.audioIndex - 1 : this.data.audioList.length - 1;
     this.setData({
       audioIndex: audioIndex,
@@ -116,13 +117,13 @@ Page({
       progressText: "00:00",
       durationText: "00:00"
     })
-    setTimeout(function() {
+    setTimeout(function () {
       this.playMusic();
     }.bind(this), 1000);
   },
 
   //播放按钮
-  playOrpause: function() {
+  playOrpause: function () {
     let manager = wx.getBackgroundAudioManager();
     if (this.data.playStatus) {
       manager.pause();
@@ -132,7 +133,7 @@ Page({
   },
 
   //下一首
-  nextMusic: function() {
+  nextMusic: function () {
     let audioIndex = this.data.audioIndex < this.data.audioList.length - 1 ? this.data.audioIndex + 1 : 0;
     this.setData({
       audioIndex: audioIndex,
@@ -141,20 +142,20 @@ Page({
       progressText: "00:00",
       durationText: "00:00"
     })
-    setTimeout(function() {
+    setTimeout(function () {
       this.playMusic();
     }.bind(this), 1000);
   },
 
   //界面切换
-  pageChange: function() {
+  pageChange: function () {
     this.setData({
       showList: true
     })
   },
 
   //格式化时长
-  formatTime: function(s) {
+  formatTime: function (s) {
     let t = '';
     s = Math.floor(s);
     if (s > -1) {
@@ -175,49 +176,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
+  onReachBottom: function () {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })
