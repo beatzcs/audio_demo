@@ -1,7 +1,7 @@
 <!--index.wxml-->
 <view class="container">
   <view wx:if="{{showList}}" class="list">
-    <view wx:for="{{audioList}}" class='item {{audioIndex==index?"active":""}}' bindtap='listClick' data-pos='{{index}}'>
+    <view wx:for="{{audioList}}" class='item {{audioIndex==index?"active":""}}' bindtap='listClick' data-pos='{{index}}' wx:key="index">
       <view>{{item.name}}</view>
       <text>{{item.author}}</text>
     </view>

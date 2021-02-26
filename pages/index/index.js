@@ -104,6 +104,8 @@ Page({
       this.setData({
         showList: false
       })
+      //更改播放状态
+      this.playOrpause();
     }
   },
 
